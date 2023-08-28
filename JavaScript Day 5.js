@@ -44,10 +44,10 @@ function purchaseBook(bookTitle, author, price, discountPercentage, stock, purch
       console.log('Book is out of stock.');
     }
 
-    console.log('Due Dates and Payment Amounts:');
-
     console.log('\n');
   }
+
+  console.log('Due Dates and Payment Amounts:');
   // Loop through dueDates array and display due date and payment amount
   for (const [index, dueDate] of dueDates.entries()) {
     const formattedDueDate = dueDate.toDateString();
@@ -65,7 +65,7 @@ console.log('\n', '\n', 'using object below', '\n', '\n');
 //
 // OBJECT
 const bookstore = {
-  purchaseBook: function (bookTitle, author, price, discountPercentage, stock, purchasedAmount, taxPercentage = 10) {
+  purchaseBook: function (bookTitle, author, price, discountPercentage, stock, purchasedAmount, creditTermMonths, taxPercentage = 10) {
     let isDiscountApplied = discountPercentage > 0;
     let discountAmount = price * (discountPercentage / 100);
     let priceAfterDiscount = price - discountAmount;
@@ -77,6 +77,14 @@ const bookstore = {
     console.log('\n');
 
     let totalPrice = 0;
+    let paymentAmountPerDueDate = priceAfterTax / creditTermMonths;
+
+    // Calculate due dates using array map function
+    const dueDates = Array.from({ length: creditTermMonths }, (_, month) => {
+      const dueDate = new Date();
+      dueDate.setMonth(dueDate.getMonth() + month + 1);
+      return dueDate;
+    });
 
     for (let i = 0; i < purchasedAmount; i++) {
       if (stock === 0) {
@@ -103,12 +111,19 @@ const bookstore = {
         console.log('Book is out of stock.');
       }
 
+      // Loop through dueDates array and display due date and payment amount
+
       console.log('\n');
+    }
+    console.log('Due Dates and Payment Amounts:');
+    for (const [index, dueDate] of dueDates.entries()) {
+      const formattedDueDate = dueDate.toDateString();
+      const paymentForDueDate = paymentAmountPerDueDate.toFixed(2);
+      console.log(`Due Date ${index + 1}: ${formattedDueDate} - Payment Amount: ${paymentForDueDate}`);
     }
   },
 };
 
 // Calling the function from the object
-// (bookTitle, author, price, discountPercentage, stock, purchasedAmount, taxPercentage)
-
-bookstore.purchaseBook('The Alchemist', 'Paulo Coelho', 20000, 15, 3, 3, 10);
+// (bookTitle, author, price, discountPercentage, stock, purchasedAmount, creditTermMonths, taxPercentage)
+bookstore.purchaseBook('The Alchemist', 'Paulo Coelho', 20000, 15, 3, 3, 6, 10);
