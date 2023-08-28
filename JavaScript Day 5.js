@@ -52,7 +52,7 @@ function purchaseBook(bookTitle, author, price, discountPercentage, stock, purch
   for (const [index, dueDate] of dueDates.entries()) {
     const formattedDueDate = dueDate.toDateString();
     const paymentForDueDate = paymentAmountPerDueDate.toFixed(2);
-    console.log(`Due Date ${index + 1}: ${formattedDueDate} - Payment Amount: Rp${paymentForDueDate}`);
+    console.log(`Due Date ${index + 1}: ${formattedDueDate} - Payment Amount: ${paymentForDueDate}`);
   }
 }
 
@@ -124,6 +124,6 @@ const bookstore = {
   },
 };
 
-// Calling the function from the object
+// Calling function from the object
 // (bookTitle, author, price, discountPercentage, stock, purchasedAmount, creditTermMonths, taxPercentage)
 bookstore.purchaseBook('The Alchemist', 'Paulo Coelho', 20000, 15, 3, 3, 6, 10);
