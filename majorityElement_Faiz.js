@@ -17,21 +17,33 @@ console.log(majorityElement([2, 2, 1, 1, 1, 2, 2])); // Output: 2
 const readlineSync = require('readline-sync');
 
 function majorityElement(nums) {
-  let candidate = nums[0];
-  let count = 1;
+  const numCount = {};
 
-  for (let i = 1; i < nums.length; i++) {
-    if (count === 0) {
-      candidate = nums[i];
-      count = 1;
-    } else if (candidate === nums[i]) {
-      count++;
+  for (const num of nums) {
+    if (numCount[num]) {
+      numCount[num]++;
     } else {
-      count--;
+      numCount[num] = 1;
     }
   }
 
-  return candidate;
+  // console.log('numCount: ');
+  // console.log(numCount);
+
+  let majorityElement;
+  let maxCount = 0;
+
+  for (const num in numCount) {
+    if (numCount[num] > maxCount) {
+      majorityElement = num;
+      maxCount = numCount[num];
+    }
+  }
+
+  // console.log('MajorityElement: ');
+  // console.log(majorityElement);
+
+  return majorityElement;
 }
 
 // Get user input
@@ -39,7 +51,7 @@ const userInput = readlineSync.question('Enter numbers separated by commas: ');
 const userNumbers = userInput.split(',').map(Number);
 
 // Check if all input values are integers
-const allIntegers = userNumbers.every((num) => Number.isInteger(num));
+const allIntegers = userNumbers.every(Number.isInteger);
 
 if (!allIntegers) {
   console.log('Error: Input contains non-integer values.');
