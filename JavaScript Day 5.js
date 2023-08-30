@@ -47,13 +47,21 @@ function purchaseBook(bookTitle, author, price, discountPercentage, stock, purch
     console.log('\n');
   }
 
-  console.log('Due Dates and Payment Amounts:');
-  // Loop through dueDates array and display due date and payment amount
+  const dueDatePaymentStrings = [];
+
+  //looping to fill array
   for (const [index, dueDate] of dueDates.entries()) {
     const formattedDueDate = dueDate.toDateString();
-    const paymentForDueDate = paymentAmountPerDueDate.toFixed(2);
-    console.log(`Due Date ${index + 1}: ${formattedDueDate} - Payment Amount: ${paymentForDueDate}`);
+    const paymentForDueDate = paymentAmountPerDueDate.toFixed(2); //rounding
+    const paymentString = `Due Date ${index + 1}: ${formattedDueDate} - Payment Amount: ${paymentForDueDate}`;
+    dueDatePaymentStrings.push(paymentString);
   }
+
+  console.log('Due Dates and Payment Amounts:');
+  console.log(dueDatePaymentStrings);
+  // for (let i = 0; i < dueDatePaymentStrings.length; i++) {
+  //   console.log(dueDatePaymentStrings[i]);
+  // }
 }
 
 // calling function
@@ -115,11 +123,20 @@ const bookstore = {
 
       console.log('\n');
     }
-    console.log('Due Dates and Payment Amounts:');
+    const dueDatePaymentStrings = [];
+
+    //looping to fill array
     for (const [index, dueDate] of dueDates.entries()) {
       const formattedDueDate = dueDate.toDateString();
-      const paymentForDueDate = paymentAmountPerDueDate.toFixed(2);
-      console.log(`Due Date ${index + 1}: ${formattedDueDate} - Payment Amount: ${paymentForDueDate}`);
+      const paymentForDueDate = paymentAmountPerDueDate.toFixed(2); //rounding
+      const paymentString = `Due Date ${index + 1}: ${formattedDueDate} - Payment Amount: ${paymentForDueDate}`;
+      dueDatePaymentStrings.push(paymentString);
+    }
+
+    console.log('Due Dates and Payment Amounts:');
+    // console.log(dueDatePaymentStrings);
+    for (let i = 0; i < dueDatePaymentStrings.length; i++) {
+      console.log(dueDatePaymentStrings[i]);
     }
   },
 };
